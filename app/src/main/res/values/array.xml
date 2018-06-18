@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="all">
+        <item>@drawable/lemon_dance</item>
+        <item>@drawable/yoda_dance</item>
+        <item>@drawable/gorilla_dance</item>
+        <item>@drawable/doggy_dance</item>
+        <item>@drawable/chaplin_dance</item>
+        <item>@drawable/bollywood_dance</item>
+        <item>@drawable/burger_dance</item>
+    </integer-array>
+</resources>
