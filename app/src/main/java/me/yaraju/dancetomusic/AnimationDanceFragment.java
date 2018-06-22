@@ -23,12 +23,12 @@ import com.bumptech.glide.request.transition.Transition;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link AnimationFragment.OnFragmentInteractionListener} interface
+ * {@link AnimationDanceFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link AnimationFragment#newInstance} factory method to
+ * Use the {@link AnimationDanceFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AnimationFragment extends Fragment implements SoundChangeListener {
+public class AnimationDanceFragment extends Fragment implements SoundChangeListener {
 
     private static final String ARG_RES_ID = "resId";
     private OnFragmentInteractionListener mListener;
@@ -40,7 +40,7 @@ public class AnimationFragment extends Fragment implements SoundChangeListener {
 
 
 
-    public AnimationFragment() {
+    public AnimationDanceFragment() {
         // Required empty public constructor
     }
 
@@ -49,11 +49,11 @@ public class AnimationFragment extends Fragment implements SoundChangeListener {
      * this fragment using the provided parameters.
      *
      * @param resId Resource ID of animation drawable.
-     * @return A new instance of fragment AnimationFragment.
+     * @return A new instance of fragment AnimationDanceFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AnimationFragment newInstance(int resId) {
-        AnimationFragment fragment = new AnimationFragment();
+    public static AnimationDanceFragment newInstance(int resId) {
+        AnimationDanceFragment fragment = new AnimationDanceFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_RES_ID, resId);
 

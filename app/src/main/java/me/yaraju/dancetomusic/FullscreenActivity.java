@@ -1,24 +1,14 @@
 package me.yaraju.dancetomusic;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.pm.PackageManager;
-import android.content.res.TypedArray;
 import android.net.Uri;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -27,7 +17,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class FullscreenActivity extends AppCompatActivity implements AnimationFragment.OnFragmentInteractionListener {
+public class FullscreenActivity extends AppCompatActivity implements AnimationDanceFragment.OnFragmentInteractionListener {
 
     private FirebaseAnalytics mFirebaseAnalytics;
 
@@ -106,7 +96,7 @@ public class FullscreenActivity extends AppCompatActivity implements AnimationFr
             return false;
         }
     };
-    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private AnimationDanceArrayPagerAdapter mAnimationDanceArrayPagerAdapter;
     private ViewPager mViewPager;
 
 
@@ -122,11 +112,11 @@ public class FullscreenActivity extends AppCompatActivity implements AnimationFr
         soundDetector = new SoundDetector(this);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mAnimationDanceArrayPagerAdapter = new AnimationDanceArrayPagerAdapter(this, getSupportFragmentManager(), soundDetector);
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setAdapter(mAnimationDanceArrayPagerAdapter);
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
@@ -147,13 +137,14 @@ public class FullscreenActivity extends AppCompatActivity implements AnimationFr
                 if (position == 0) {
                     prevButton.setVisibility(View.INVISIBLE);
                     nextButton.setVisibility(View.VISIBLE);
-                } else if (position == mSectionsPagerAdapter.getCount()-1) {
+                } else if (position == mAnimationDanceArrayPagerAdapter.getCount()-1) {
                     prevButton.setVisibility(View.VISIBLE);
                     nextButton.setVisibility(View.INVISIBLE);
                 } else {
                     prevButton.setVisibility(View.VISIBLE);
                     nextButton.setVisibility(View.VISIBLE);
                 }
+
             }
 
             @Override
@@ -264,33 +255,4 @@ public class FullscreenActivity extends AppCompatActivity implements AnimationFr
 
     }
 
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        private final TypedArray imgs;
-
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-            imgs = getResources().obtainTypedArray(R.array.all);
-            Log.d("test", "just a dummy line");
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            int resourceId = imgs.getResourceId(position, 0);
-            AnimationFragment fragment = AnimationFragment.newInstance(resourceId);
-            soundDetector.addSoundChangeListener(fragment);
-            return fragment;
-        }
-
-        @Override
-        public int getCount() {
-            return imgs.length();
-        }
-    }
 }

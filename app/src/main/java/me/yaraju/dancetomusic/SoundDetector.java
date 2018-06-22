@@ -107,7 +107,9 @@ public class SoundDetector {
 
     private void onSoundStarted() {
         for (SoundChangeListener listener: soundChangeListenerMap.values()) {
-            if (listener.isReady()) listener.onSoundStarted();
+            if (listener.isReady()) {
+                listener.onSoundStarted();
+            }
         }
     }
 
