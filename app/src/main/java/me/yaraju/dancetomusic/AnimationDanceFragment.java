@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.resource.gif.GifDrawable;
 import com.bumptech.glide.request.target.DrawableImageViewTarget;
 import com.bumptech.glide.request.transition.Transition;
@@ -31,14 +33,14 @@ import com.bumptech.glide.request.transition.Transition;
 public class AnimationDanceFragment extends Fragment implements SoundChangeListener {
 
     private static final String ARG_RES_ID = "resId";
+    private static final String ARG_URL = "url";
     private OnFragmentInteractionListener mListener;
     private GifDrawable animation = null;
 
 
     private int resId = R.drawable.lemon_dance;
+    private String url;
     private TextView mStatusView;
-
-
 
     public AnimationDanceFragment() {
         // Required empty public constructor
@@ -61,11 +63,24 @@ public class AnimationDanceFragment extends Fragment implements SoundChangeListe
         return fragment;
     }
 
+    public static AnimationDanceFragment newInstance(String url) {
+        AnimationDanceFragment fragment = new AnimationDanceFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_URL, url);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static AnimationDanceFragment newInstance() {
+        return newInstance(R.drawable.lemon_dance);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            resId = getArguments().getInt(ARG_RES_ID);
+            resId = getArguments().getInt(ARG_RES_ID,  resId);
+            url = getArguments().getString(ARG_URL);
         }
     }
 
@@ -77,7 +92,14 @@ public class AnimationDanceFragment extends Fragment implements SoundChangeListe
         // Inflate the layout for this fragment
         ImageView imageView = rootView.findViewById(R.id.animationImageView);
         mStatusView = rootView.findViewById(R.id.status);
-        Glide.with(this).load(resId).into(new DrawableImageViewTarget(imageView) {
+        RequestManager glideRM = Glide.with(this);
+        RequestBuilder<Drawable> glideBuilder;
+        if (url != null && !url.isEmpty()) {
+            glideBuilder = glideRM.load(url);
+        } else {
+            glideBuilder = glideRM.load(resId);
+        }
+        glideBuilder.into(new DrawableImageViewTarget(imageView) {
             @Override
             public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
                 super.onResourceReady(resource, transition);
@@ -145,8 +167,8 @@ public class AnimationDanceFragment extends Fragment implements SoundChangeListe
     }
 
     @Override
-    public int getListenerId() {
-        return getArguments().getInt(ARG_RES_ID);
+    public String getListenerId() {
+        return getArguments().getString(ARG_URL, Integer.toString(getArguments().getInt(ARG_RES_ID)));
     }
 
     /**

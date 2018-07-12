@@ -96,7 +96,7 @@ public class FullscreenActivity extends AppCompatActivity implements AnimationDa
             return false;
         }
     };
-    private AnimationDanceArrayPagerAdapter mAnimationDanceArrayPagerAdapter;
+    private AnimationServicePagerAdapter mAnimationDanceArrayPagerAdapter;
     private ViewPager mViewPager;
 
 
@@ -112,7 +112,7 @@ public class FullscreenActivity extends AppCompatActivity implements AnimationDa
         soundDetector = new SoundDetector(this);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mAnimationDanceArrayPagerAdapter = new AnimationDanceArrayPagerAdapter(this, getSupportFragmentManager(), soundDetector);
+        mAnimationDanceArrayPagerAdapter = new AnimationServicePagerAdapter(this, getSupportFragmentManager(), soundDetector);
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);

@@ -10,5 +10,5 @@ public interface SoundChangeListener {
     void onSoundStarted();
     void onSoundStopped();
 
-    int getListenerId();
+    String getListenerId();
 }

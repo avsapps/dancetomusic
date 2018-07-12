@@ -35,7 +35,7 @@ public class SoundDetector {
             start();
         }
     };
-    private Map<Integer, SoundChangeListener> soundChangeListenerMap;
+    private Map<String, SoundChangeListener> soundChangeListenerMap;
 
     private boolean initalized = false;
 
